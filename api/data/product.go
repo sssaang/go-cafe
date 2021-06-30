@@ -33,3 +33,7 @@ var productList = []*Product{
 		UpdatedOn: time.Now().UTC().String(),
 	},
 }
+
+func GetProducts() []*Product {
+	return productList
+}
