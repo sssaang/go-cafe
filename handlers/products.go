@@ -16,7 +16,12 @@ func NewProduct(l *log.Logger) *Products {
 }
 
 func (p *Products) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	
+	if r.Method == http.MethodGet {
+		p.getProducts(rw)
+		return
+	}
+
+	rw.WriteHeader(http.StatusMethodNotAllowed)
 }
 
 func (p *Products) getProducts(rw http.ResponseWriter) {
