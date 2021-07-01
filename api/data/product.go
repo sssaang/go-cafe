@@ -32,7 +32,7 @@ func valdiateSKU(fl validator.FieldLevel) bool {
 	regex := regexp.MustCompile(`[a-z]+-[a-z]+-[a-z]+`)
 	matches := regex.FindAllString(fl.Field().String(), -1)
 
-	return len(matches) != 1
+	return len(matches) == 1
 }
 
 func (p *Product) FromJSON(r io.Reader) error {
