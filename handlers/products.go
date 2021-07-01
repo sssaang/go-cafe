@@ -61,6 +61,13 @@ func (p *Products) MiddlewareProductValidation(next http.Handler) http.Handler {
 			http.Error(rw, "Unable to unmarshal data", http.StatusBadRequest)
 			return
 		}
+
+		err = prod.Validate()
+		if err != nil {
+			http.Error(rw, "Invalid data format", http.StatusBadRequest)
+			return
+		}
+
 		ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
 		req := r.WithContext(ctx)
 
