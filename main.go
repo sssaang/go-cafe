@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/gorilla/mux"
 	"github.com/sssaang/go-cafe/handlers"
 )
 
@@ -15,8 +16,10 @@ func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 	ph := handlers.NewProduct(l)
 
-	sm := http.NewServeMux()
-	sm.Handle("/", ph)
+	sm := mux.NewRouter()
+
+	getRouter := sm.Methods("GET").Subrouter()
+	getRouter.HandleFunc("/products", ph.GetProducts)
 
 	s := &http.Server{
 		Addr: ":9090",
@@ -27,6 +30,7 @@ func main() {
 	}
 
 	go func() {
+		l.Println("Server listening on :9090")
 		err := s.ListenAndServe()
 		if err != nil {
 			l.Fatal(err)
