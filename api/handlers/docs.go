@@ -18,11 +18,20 @@ import "github.com/sssaang/go-cafe/api/data"
 // A list of products returns in the response
 // swagger:response productsResponse
 type productsResponseWrapper struct {
-	// All products in the system
+	// products in the system
 	// in: body
 	Body []data.Product
 }
 
+// Data structure representing a single product
+// swagger:response productResponse
+type productResponseWrapper struct {
+	// Newly created product
+	// in: body
+	Body data.Product
+}
+
+// A response with no content
 // swagger:response noContentResponse
 type noContentResponse struct {}
 
@@ -32,6 +41,15 @@ type productIdParamWrapper struct {
 	// in:path
 	// required: true
 	ID int `json:"id"`
+}
+
+// swagger:parameters updateProduct createProduct
+type productParamsWrapper struct {
+	// Product data structure to Update or Create.
+	// Note: the id field is ignored by update and create operations
+	// in: body
+	// required: true
+	Body data.Product
 }
 
 // Generic error message returned as a string

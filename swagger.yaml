@@ -66,12 +66,33 @@ paths:
           $ref: '#/responses/productsResponse'
       tags:
       - products
+    post:
+      description: Create a new product
+      operationId: createProduct
+      parameters:
+      - description: |-
+          Product data structure to Update or Create.
+          Note: the id field is ignored by update and create operations
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        "200":
+          $ref: '#/responses/productResponse'
+        "422":
+          $ref: '#/responses/errorValidation'
+        "501":
+          $ref: '#/responses/errorResponse'
+      tags:
+      - products
   /products/{id}:
     delete:
       description: Deletes a product
       operationId: deleteProduct
       parameters:
-      - description: id of the product to be deleted from the database
+      - description: id of the product to be deleted or modified from the database
         format: int64
         in: path
         name: id
@@ -87,13 +108,21 @@ paths:
       description: Update a products details
       operationId: updateProduct
       parameters:
-      - description: id of the product to be deleted from the database
+      - description: id of the product to be deleted or modified from the database
         format: int64
         in: path
         name: id
         required: true
         type: integer
         x-go-name: ID
+      - description: |-
+          Product data structure to Update or Create.
+          Note: the id field is ignored by update and create operations
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
       responses:
         "201":
           $ref: '#/responses/noContentResponse'
@@ -115,7 +144,11 @@ responses:
     schema:
       $ref: '#/definitions/ValidationError'
   noContentResponse:
-    description: ""
+    description: A response with no content
+  productResponse:
+    description: Data structure representing a single product
+    schema:
+      $ref: '#/definitions/Product'
   productsResponse:
     description: A list of products returns in the response
     schema:

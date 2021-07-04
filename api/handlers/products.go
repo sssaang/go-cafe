@@ -32,6 +32,14 @@ func (p *Products) GetProducts(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// swagger:route POST /products products createProduct
+// Create a new product
+//
+// responses:
+//	200: productResponse
+//  422: errorValidation
+//  501: errorResponse
+
 // Inserts a product to the database
 func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	prod := r.Context().Value(KeyProduct{}).(*data.Product)
