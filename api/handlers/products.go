@@ -76,6 +76,12 @@ func (p *Products) UpdateProduct(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// swagger:route DELETE /products/{id} products deleteProduct
+// Deletes a product
+// responses:
+//  201: noContent
+
+// Delete a product from the database
 func (p *Products) DeleteProduct(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
