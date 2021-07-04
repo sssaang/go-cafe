@@ -87,7 +87,7 @@ paths:
       description: Update a products details
       operationId: updateProduct
       parameters:
-      - description: id of the product to be modified from the database
+      - description: id of the product to be deleted from the database
         format: int64
         in: path
         name: id
