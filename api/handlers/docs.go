@@ -1,3 +1,7 @@
+package handlers
+
+import "github.com/sssaang/go-cafe/api/data"
+
 // A list of products returns in the response
 // swagger:response productsResponse
 type productsResponseWrapper struct {
