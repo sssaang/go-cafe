@@ -22,26 +22,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/sssaang/go-cafe/api/data"
 )
-
-// A list of products returns in the response
-// swagger:response productsResponse
-type productsResponseWrapper struct {
-	// All products in the system
-	// in: body
-	Body []data.Product
-}
-
-// swagger:response noContent
-type noContent struct {}
-
-// swagger:parameters deleteProduct
-type productDeleteParamWrapper struct {
-	// id of the product to be deleted from the database
-	// in:path
-	// required: true
-	ID int `json:"id"`
-}
-
 type Products struct {
 	l *log.Logger
 }
@@ -73,6 +53,14 @@ func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	data.AddProduct(prod)
 }
 
+// swagger:route PUT /products/{id} products updateProduct
+// Update a products details
+//
+// responses:
+//	201: noContentResponse
+//  404: errorResponse
+//  422: errorValidation
+
 // Updates a product from the database
 func (p *Products) UpdateProduct(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -93,7 +81,7 @@ func (p *Products) UpdateProduct(rw http.ResponseWriter, r *http.Request) {
 // swagger:route DELETE /products/{id} products deleteProduct
 // Deletes a product
 // responses:
-//  201: noContent
+//  201: noContentResponse
 
 // Deletes a product from the database
 func (p *Products) DeleteProduct(rw http.ResponseWriter, r *http.Request) {

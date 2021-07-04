@@ -2,6 +2,13 @@ basePath: /
 consumes:
 - application/json
 definitions:
+  GenericError:
+    properties:
+      message:
+        type: string
+        x-go-name: Message
+    type: object
+    x-go-package: github.com/sssaang/go-cafe/api/handlers
   Product:
     description: Product defines the structure for an API product
     properties:
@@ -39,6 +46,13 @@ definitions:
     - sku
     type: object
     x-go-package: github.com/sssaang/go-cafe/api/data
+  ValidationError:
+    properties:
+      message:
+        type: string
+        x-go-name: Message
+    type: object
+    x-go-package: github.com/sssaang/go-cafe/api/handlers
 info:
   description: Documentation for Product API
   version: 1.0.0
@@ -66,13 +80,41 @@ paths:
         x-go-name: ID
       responses:
         "201":
-          $ref: '#/responses/noContent'
+          $ref: '#/responses/noContentResponse'
+      tags:
+      - products
+    put:
+      description: Update a products details
+      operationId: updateProduct
+      parameters:
+      - description: id of the product to be modified from the database
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "201":
+          $ref: '#/responses/noContentResponse'
+        "404":
+          $ref: '#/responses/errorResponse'
+        "422":
+          $ref: '#/responses/errorValidation'
       tags:
       - products
 produces:
 - application/json
 responses:
-  noContent:
+  errorResponse:
+    description: Generic error message returned as a string
+    schema:
+      $ref: '#/definitions/GenericError'
+  errorValidation:
+    description: Validation errors defined as an array of strings
+    schema:
+      $ref: '#/definitions/ValidationError'
+  noContentResponse:
     description: ""
   productsResponse:
     description: A list of products returns in the response
