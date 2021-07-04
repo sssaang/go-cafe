@@ -23,6 +23,14 @@ import (
 	"github.com/sssaang/go-cafe/api/data"
 )
 
+// A list of products returns in the response
+// swagger:response productsResponse
+type productsResponseWrapper struct {
+	// All products in the system
+	// in: body
+	Body []data.Product
+}
+
 type Products struct {
 	l *log.Logger
 }
