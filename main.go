@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/sssaang/go-cafe/handlers"
+	"github.com/sssaang/go-cafe/api/handlers"
 )
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/products", ph.GetProducts)
 
-	putRouter := sm.Methods(http.MethodPut).Subrouter()
+ 	putRouter := sm.Methods(http.MethodPut).Subrouter()
 	putRouter.HandleFunc("/products/{id:[0-9]+}", ph.UpdateProduct)
 	putRouter.Use(ph.MiddlewareProductValidation)
 
