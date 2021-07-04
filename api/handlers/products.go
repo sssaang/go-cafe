@@ -44,6 +44,7 @@ func NewProduct(l *log.Logger) *Products {
 // responses:
 //  200: productsResponse
 
+// Retrieves all products from the database
 func (p *Products) GetProducts(rw http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
 	err := lp.ToJSON(rw)
@@ -53,6 +54,7 @@ func (p *Products) GetProducts(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Inserts a product to the database
 func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	prod := r.Context().Value(KeyProduct{}).(*data.Product)
 
@@ -60,6 +62,7 @@ func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	data.AddProduct(prod)
 }
 
+// Updates a product from the database
 func (p *Products) UpdateProduct(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
@@ -81,7 +84,7 @@ func (p *Products) UpdateProduct(rw http.ResponseWriter, r *http.Request) {
 // responses:
 //  201: noContent
 
-// Delete a product from the database
+// Deletes a product from the database
 func (p *Products) DeleteProduct(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
