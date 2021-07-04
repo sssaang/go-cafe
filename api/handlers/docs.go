@@ -13,17 +13,9 @@ type productsResponseWrapper struct {
 // swagger:response noContentResponse
 type noContentResponse struct {}
 
-// swagger:parameters deleteProduct
-type productDeleteParamWrapper struct {
+// swagger:parameters deleteProduct updateProduct
+type productIdParamWrapper struct {
 	// id of the product to be deleted from the database
-	// in:path
-	// required: true
-	ID int `json:"id"`
-}
-
-// swagger:parameters updateProduct
-type updateProduct struct {
-	// id of the product to be modified from the database
 	// in:path
 	// required: true
 	ID int `json:"id"`
