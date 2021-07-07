@@ -1,4 +1,4 @@
-module github.com/sssaang/go-cafe
+module github.com/sssaang/go-cafe/api
 
 go 1.16
 
