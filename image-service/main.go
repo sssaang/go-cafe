@@ -54,7 +54,7 @@ func main() {
 
 	// create a new server
 	s := http.Server{
-		Addr:         "locahost:9091",      // configure the bind address
+		Addr:         ":9091",      // configure the bind address
 		Handler:      sm,                // set the default handler
 		ErrorLog:     sl,                // the logger for the server
 		ReadTimeout:  5 * time.Second,   // max time to read request from the client
@@ -64,7 +64,7 @@ func main() {
 
 	// start the server
 	go func() {
-		l.Info("Starting server", "bind_address",  "locahost:9091")
+		l.Info("Starting server", "bind_address",  ":9091")
 
 		err := s.ListenAndServe()
 		if err != nil {
